@@ -4,9 +4,11 @@ import co.duvan.test.springboot.app.models.Banco;
 import co.duvan.test.springboot.app.models.Cuenta;
 import co.duvan.test.springboot.app.repositories.BancoRepository;
 import co.duvan.test.springboot.app.repositories.CuentaRepository;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class CuentaServicesImpl implements CuentaService{
 
     //* Vars
@@ -14,9 +16,6 @@ public class CuentaServicesImpl implements CuentaService{
     private BancoRepository bancoRepository;
 
     //* Constructors
-    public CuentaServicesImpl() {
-    }
-
     public CuentaServicesImpl(CuentaRepository cuentaRepository, BancoRepository repository) {
         this.cuentaRepository = cuentaRepository;
         this.bancoRepository = repository;

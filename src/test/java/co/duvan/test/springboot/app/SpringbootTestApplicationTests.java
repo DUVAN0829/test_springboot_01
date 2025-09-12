@@ -10,26 +10,31 @@ import co.duvan.test.springboot.app.repositories.BancoRepository;
 import co.duvan.test.springboot.app.repositories.CuentaRepository;
 import co.duvan.test.springboot.app.services.CuentaService;
 import co.duvan.test.springboot.app.services.CuentaServicesImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.math.BigDecimal;
 
 @SpringBootTest
 class SpringbootTestApplicationTests {
 
+    @MockitoBean
     CuentaRepository cuentaRepository;
+
+    @MockitoBean
     BancoRepository bancoRepository;
 
+    @Autowired
     CuentaService service;
 
-    @BeforeEach
-    void setUp() {
-        cuentaRepository = mock(CuentaRepository.class);
-        bancoRepository = mock(BancoRepository.class);
-        service = new CuentaServicesImpl(cuentaRepository, bancoRepository);
-    }
+    //@BeforeEach
+    //void setUp() {
+        //cuentaRepository = mock(CuentaRepository.class);
+        //bancoRepository = mock(BancoRepository.class);
+        //service = new CuentaServicesImpl(cuentaRepository, bancoRepository);
+    //}
 
     @Test
     void contextLoads() {
@@ -60,6 +65,9 @@ class SpringbootTestApplicationTests {
 
         verify(bancoRepository, times(2)).findById(1L);
         verify(bancoRepository).update(any(Banco.class));
+
+        verify(cuentaRepository, never()).findAll();
+        verify(cuentaRepository, times(6)).findById(anyLong());
 
     }
 
@@ -96,6 +104,45 @@ class SpringbootTestApplicationTests {
 
         verify(bancoRepository).findById(1L);
         verify(bancoRepository, never()).update(any(Banco.class));
+
+        verify(cuentaRepository, never()).findAll();
+        verify(cuentaRepository, times(5)).findById(anyLong());
+    }
+
+    @Test
+    void contextLoads3() {
+
+        when(cuentaRepository.findById(1L)).thenReturn(Datos.crearCuenta001());
+
+        Cuenta cuenta1 = service.findById(1L);
+        Cuenta cuenta2 = service.findById(1L);
+
+        assertSame(cuenta1, cuenta2);
+        assertEquals("Duván", cuenta1.getPersona());
+        assertEquals("Duván", cuenta2.getPersona());
+
+        verify(cuentaRepository, times(2)).findById(1L);
+
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
