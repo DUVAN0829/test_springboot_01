@@ -19,7 +19,7 @@ public class CuentaServicesImpl implements CuentaService{
 
     public CuentaServicesImpl(CuentaRepository cuentaRepository, BancoRepository repository) {
         this.cuentaRepository = cuentaRepository;
-        this.repository = repository;
+        this.bancoRepository = repository;
     }
 
     //* Methods
