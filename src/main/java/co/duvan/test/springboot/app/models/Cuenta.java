@@ -1,5 +1,7 @@
 package co.duvan.test.springboot.app.models;
 
+import co.duvan.test.springboot.app.exceptions.DineroInsuficienteException;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -47,7 +49,15 @@ public class Cuenta {
 
     //* Methods
     public void debito(BigDecimal monto) {
-        this.saldo = this.saldo.subtract(monto);
+
+        BigDecimal nuevosaldo = this.saldo.subtract(monto);
+
+        if (nuevosaldo.compareTo(BigDecimal.ZERO) < 0) {
+            throw new DineroInsuficienteException("Dinero insuficiente en la cuenta.");
+        }
+
+        this.saldo = nuevosaldo;
+
     }
 
     public void credito(BigDecimal monto) {
