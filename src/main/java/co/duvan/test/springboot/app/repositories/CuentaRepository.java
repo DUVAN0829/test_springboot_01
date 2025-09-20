@@ -16,7 +16,7 @@ public interface CuentaRepository extends CrudRepository<Cuenta, Long> {
 //
 //    void update(Cuenta cuenta);
 
-    @Query("select c from Cuenta c where c.persona=?1 and c.saldo=?2")
-    Optional<Cuenta> findByPersona(String persona, BigDecimal saldo);
+    @Query("select c from Cuenta c where c.persona=?1")
+    Optional<Cuenta> findByPersona(String persona);
 
 }

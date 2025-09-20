@@ -25,4 +25,14 @@ public class IntegracionJpaTest {
 
     }
 
+    @Test
+    void testFindByPersona() {
+
+        Optional<Cuenta> cuenta = cuentaRepository.findByPersona("Duvan");
+        assertTrue(cuenta.isPresent());
+        assertEquals("Duván", cuenta.get().getPersona());
+
+
+    }
+
 }
