@@ -1,8 +1,7 @@
 package co.duvan.test.springboot.app.models;
 
 import co.duvan.test.springboot.app.exceptions.DineroInsuficienteException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -12,6 +11,8 @@ import java.util.Objects;
 public class Cuenta {
 
     //* vars
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String persona;
     private BigDecimal saldo;
