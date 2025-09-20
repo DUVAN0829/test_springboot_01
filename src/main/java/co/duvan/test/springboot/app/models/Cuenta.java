@@ -1,10 +1,14 @@
 package co.duvan.test.springboot.app.models;
 
 import co.duvan.test.springboot.app.exceptions.DineroInsuficienteException;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "cuentas")
 public class Cuenta {
 
     //* vars
