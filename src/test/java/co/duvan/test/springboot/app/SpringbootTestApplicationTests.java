@@ -9,7 +9,6 @@ import co.duvan.test.springboot.app.models.Cuenta;
 import co.duvan.test.springboot.app.repositories.BancoRepository;
 import co.duvan.test.springboot.app.repositories.CuentaRepository;
 import co.duvan.test.springboot.app.services.CuentaService;
-import co.duvan.test.springboot.app.services.CuentaServicesImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

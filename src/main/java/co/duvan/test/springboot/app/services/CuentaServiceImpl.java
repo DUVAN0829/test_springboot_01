@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class CuentaServicesImpl implements CuentaService{
+public class CuentaServiceImpl implements CuentaService{
 
     //* Vars
-    private CuentaRepository cuentaRepository;
-    private BancoRepository bancoRepository;
+    private final CuentaRepository cuentaRepository;
+    private final BancoRepository bancoRepository;
 
     //* Constructors
-    public CuentaServicesImpl(CuentaRepository cuentaRepository, BancoRepository repository) {
+    public CuentaServiceImpl(CuentaRepository cuentaRepository, BancoRepository repository) {
         this.cuentaRepository = cuentaRepository;
         this.bancoRepository = repository;
     }
@@ -24,13 +24,13 @@ public class CuentaServicesImpl implements CuentaService{
     //* Methods
     @Override
     public Cuenta findById(Long id) {
-        return cuentaRepository.findById(id);
+        return cuentaRepository.findById(id).orElseThrow();
     }
 
     @Override
     public int revisarTotalTransferencia(Long bancoId) {
 
-        Banco banco = bancoRepository.findById(bancoId);
+        Banco banco = bancoRepository.findById(bancoId).orElseThrow();
 
         return banco.getTotalTransferencias();
     }
@@ -38,7 +38,7 @@ public class CuentaServicesImpl implements CuentaService{
     @Override
     public BigDecimal revisarSaldo(Long cuentaId) {
 
-        Cuenta cuenta = cuentaRepository.findById(cuentaId);
+        Cuenta cuenta = cuentaRepository.findById(cuentaId).orElseThrow();
 
         return cuenta.getSaldo();
     }
@@ -47,20 +47,20 @@ public class CuentaServicesImpl implements CuentaService{
     public void transferir(Long bancoId, Long numCuentaOrigen, Long numCuentaDestino, BigDecimal monto) {
 
         //* Modificación cuenta origen
-        Cuenta cuentaOrigen = cuentaRepository.findById(numCuentaOrigen);
+        Cuenta cuentaOrigen = cuentaRepository.findById(numCuentaOrigen).orElseThrow();
         cuentaOrigen.debito(monto);
-        cuentaRepository.update(cuentaOrigen);
+        cuentaRepository.save(cuentaOrigen);
 
         //* Modificación cuenta destino
-        Cuenta cuentaDestino = cuentaRepository.findById(numCuentaDestino);
+        Cuenta cuentaDestino = cuentaRepository.findById(numCuentaDestino).orElseThrow();
         cuentaDestino.credito(monto);
-        cuentaRepository.update(cuentaDestino);
+        cuentaRepository.save(cuentaDestino);
 
         //* Modificación Banco
-        Banco banco = bancoRepository.findById(bancoId);
+        Banco banco = bancoRepository.findById(bancoId).orElseThrow();
         int totalTransferencia = banco.getTotalTransferencias();
         banco.setTotalTransferencias(++totalTransferencia);
-        bancoRepository.update(banco);
+        bancoRepository.save(banco);
 
     }
 
