@@ -3,6 +3,7 @@ package co.duvan.test.springboot.app.services;
 import co.duvan.test.springboot.app.models.Cuenta;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface CuentaService {
 
@@ -13,5 +14,7 @@ public interface CuentaService {
     BigDecimal revisarSaldo(Long cuentaId);
 
     void transferir(Long bancoId, Long numCuentaOrigen, Long numCuentaDestino, BigDecimal monto);
+
+    List<Cuenta> findAll();
 
 }

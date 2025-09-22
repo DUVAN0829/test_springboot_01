@@ -7,6 +7,7 @@ import co.duvan.test.springboot.app.repositories.CuentaRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class CuentaServiceImpl implements CuentaService{
@@ -22,6 +23,11 @@ public class CuentaServiceImpl implements CuentaService{
     }
 
     //* Methods
+    @Override
+    public List<Cuenta> findAll() {
+        return (List<Cuenta>) cuentaRepository.findAll();
+    }
+
     @Override
     public Cuenta findById(Long id) {
         return cuentaRepository.findById(id).orElseThrow();
