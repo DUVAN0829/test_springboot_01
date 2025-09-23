@@ -18,12 +18,10 @@ public class CuentaController {
 
     //* Vars
     private final CuentaService service;
-    private final CuentaRepository cuentaRepository;
 
     //* Constructor
-    public CuentaController(CuentaService service, CuentaRepository cuentaRepository) {
+    public CuentaController(CuentaService service) {
         this.service = service;
-        this.cuentaRepository = cuentaRepository;
     }
 
     //* Methods handler
